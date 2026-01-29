@@ -1,0 +1,116 @@
+@startuml
+' --- CẤU HÌNH GIAO DIỆN ---
+skinparam linetype ortho
+skinparam classAttributeIconSize 0
+hide empty members
+
+title Class Diagram - Hotel Booking System
+
+' --- KHỐI CONTROLLER ---
+class BookingController <<Controller>> {
+    - bookingService: IBookingService
+    + makeReservation(guestId: String, roomIds: List<String>, dates: DateRange): Booking
+    + cancelReservation(bookingId: String): boolean
+    + getBookingDetails(bookingId: String): Booking
+}
+
+' --- KHỐI SERVICE ---
+interface IBookingService <<Interface>> {
+    + checkAvailability(roomIds: List<String>, dates: DateRange): boolean
+    + calculateTotal(booking: Booking): double
+    + applyDiscount(booking: Booking, code: String): void
+    + createBooking(booking: Booking): Booking
+}
+
+class BookingService <<Service>> {
+    - bookingRepository: IBookingRepository
+    + checkAvailability(roomIds: List<String>, dates: DateRange): boolean
+    + calculateTotal(booking: Booking): double
+    + applyDiscount(booking: Booking, code: String): void
+    + createBooking(booking: Booking): Booking
+}
+
+' --- KHỐI REPOSITORY ---
+interface IBookingRepository <<Interface>> {
+    + save(booking: Booking): Booking
+    + findById(id: String): Booking
+    + delete(id: String): void
+    + findAllByGuestId(guestId: String): List<Booking>
+}
+
+' --- KHỐI ENTITIES ---
+class Hotel <<Entity>> {
+    - id: String
+    - name: String
+    - address: String
+    + addRoom(room: Room): void
+    + removeRoom(roomId: String): void
+    + getAvailableRooms(): List<Room>
+}
+
+class Room <<Entity>> {
+    - roomNumber: String
+    - floor: int
+    - status: String
+    + isOccupied(): boolean
+    + setStatus(status: String): void
+    + getDetails(): String
+}
+
+class RoomType <<Entity>> {
+    - typeName: String
+    - basePrice: double
+    - capacity: int
+    + getPrice(): double
+    + updatePrice(newPrice: double): void
+}
+
+class Guest <<Entity>> {
+    - id: String
+    - fullName: String
+    - email: String
+    - phone: String
+    + updateProfile(info: GuestInfo): void
+    + getBookingHistory(): List<Booking>
+}
+
+class Booking <<Entity>> {
+    - id: String
+    - checkInDate: LocalDate
+    - checkOutDate: LocalDate
+    - totalPrice: double
+    + addRoom(room: Room): void
+    + calculateDuration(): int
+    + getInvoice(): Invoice
+}
+
+' --- CÁC MỐI QUAN HỆ (RELATIONSHIPS) ---
+
+' 1. Controller gọi Service (Association/Usage)
+BookingController --> IBookingService : uses
+
+' 2. Service thực thi Interface (Realization <|..)
+IBookingService <|.. BookingService
+
+' 3. Service gọi Repository (Association/Usage)
+BookingService --> IBookingRepository : uses
+
+' 4. Quan hệ Entities
+
+' Hotel sở hữu Room (Composition *--)
+Hotel "1" *-- "*" Room : Composition
+
+' Room thuộc về RoomType (Association -->)
+Room "*" --> "1" RoomType : has type
+
+' Guest có Booking (Aggregation o--)
+Guest "1" o-- "*" Booking : Aggregation
+
+' Booking bao gồm Room (Association 1..* theo đề bài 2.3)
+Booking "1" --> "1..*" Room : includes
+
+' BookingService phụ thuộc Room/RoomType để tính tiền (Dependency ..> theo đề bài 2.5)
+BookingService ..> Room : uses to calc price
+BookingService ..> RoomType : uses to get base price
+
+@enduml
