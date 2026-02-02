@@ -2616,7 +2616,7 @@
 										"$ref": "AAAAAAGcCScNquzYVeQ="
 									},
 									"edgePosition": 1,
-									"text": "+Aggregation"
+									"text": "+makes"
 								},
 								{
 									"_type": "EdgeLabelView",
@@ -2727,7 +2727,7 @@
 										"$ref": "AAAAAAGcCScNquzYVeQ="
 									},
 									"edgePosition": 2,
-									"text": "1"
+									"text": "*"
 								},
 								{
 									"_type": "EdgeLabelView",
@@ -4327,7 +4327,7 @@
 										"$ref": "AAAAAAGcCTaJckm4so4="
 									},
 									"edgePosition": 1,
-									"text": "+compotition"
+									"text": "+owns"
 								},
 								{
 									"_type": "EdgeLabelView",
@@ -4438,7 +4438,7 @@
 										"$ref": "AAAAAAGcCTaJckm4so4="
 									},
 									"edgePosition": 2,
-									"text": "1"
+									"text": "*"
 								},
 								{
 									"_type": "EdgeLabelView",
@@ -4502,7 +4502,7 @@
 									"hostEdge": {
 										"$ref": "AAAAAAGcCTaJckm4so4="
 									},
-									"text": "n"
+									"text": "1"
 								},
 								{
 									"_type": "UMLQualifierCompartmentView",
@@ -4999,7 +4999,7 @@
 							"_parent": {
 								"$ref": "AAAAAAGcCQgdcOeoSvE="
 							},
-							"name": "compotition",
+							"name": "owns",
 							"end1": {
 								"_type": "UMLAssociationEnd",
 								"_id": "AAAAAAGcCTaJcUm1jr8=",
@@ -5009,7 +5009,7 @@
 								"reference": {
 									"$ref": "AAAAAAGcCQgdcOeoSvE="
 								},
-								"multiplicity": "1"
+								"multiplicity": "*"
 							},
 							"end2": {
 								"_type": "UMLAssociationEnd",
@@ -5021,7 +5021,7 @@
 									"$ref": "AAAAAAGcCQWsbedgR50="
 								},
 								"aggregation": "composite",
-								"multiplicity": "n"
+								"multiplicity": "1"
 							}
 						}
 					],
@@ -5227,7 +5227,7 @@
 							"_parent": {
 								"$ref": "AAAAAAGcCQhqnegmpkU="
 							},
-							"name": "Aggregation",
+							"name": "makes",
 							"end1": {
 								"_type": "UMLAssociationEnd",
 								"_id": "AAAAAAGcCScNquzVWLg=",
@@ -5237,7 +5237,7 @@
 								"reference": {
 									"$ref": "AAAAAAGcCQhqnegmpkU="
 								},
-								"multiplicity": "1"
+								"multiplicity": "*"
 							},
 							"end2": {
 								"_type": "UMLAssociationEnd",
